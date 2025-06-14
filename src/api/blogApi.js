@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:8000/api/', // Ensure trailing slash matches Django URLs
+  baseURL: 'https://backend-7x8e.onrender.com/', // Ensure trailing slash matches Django URLs
 });
 
 // Automatically attach JWT token to all requests
