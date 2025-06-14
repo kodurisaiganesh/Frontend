@@ -1,0 +1,25 @@
+.edit-blog-page {
+    padding: 2rem 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  
+  .edit-blog-page input,
+  .edit-blog-page textarea {
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+  
+  .edit-blog-page input:focus,
+  .edit-blog-page textarea:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
+  }
+  

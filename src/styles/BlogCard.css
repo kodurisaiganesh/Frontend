@@ -1,0 +1,31 @@
+.blog-card {
+    border: 1px solid #ddd;
+    padding: 1.5rem;
+    margin: 1.5rem auto;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Optional: Limit card width on larger screens */
+  @media (min-width: 600px) {
+    .blog-card {
+      width: 90%;
+    }
+  }
+  
+  @media (min-width: 900px) {
+    .blog-card {
+      width: 70%;
+    }
+  }
+  
+  .blog-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+  

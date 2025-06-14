@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+.create-blog-page {
+  font-family: 'Poppins', sans-serif;
+  padding: 2rem 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  animation: fadeSlideIn 0.5s ease-in-out;
+}
+
+.create-blog-page input,
+.create-blog-page textarea {
+  width: 100%;
+  margin: 0.75rem 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  background-color: #f9f9f9;
+  font-family: 'Poppins', sans-serif;
+}
+
+.create-blog-page input:focus,
+.create-blog-page textarea:focus {
+  border-color: #007bff;
+  outline: none;
+  background-color: #fff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+  transform: scale(1.01);
+}
+
+/* Optional: Style placeholder */
+.create-blog-page input::placeholder,
+.create-blog-page textarea::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+/* Animation */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.create-blog-page button {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+  }
+  
+  .create-blog-page button:hover {
+    background-color: #0056d2;
+    transform: translateY(-2px);
+  }
+  
+  .create-blog-page button:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+  }
+  

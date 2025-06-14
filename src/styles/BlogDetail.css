@@ -1,0 +1,122 @@
+/* BlogDetail.css */
+
+/* Base container styles */
+.blog-detail {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background: linear-gradient(to right, #fdfbfb, #ebedee);
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Title and author */
+.blog-detail h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #2c3e50;
+  animation: slideDown 0.6s ease forwards;
+}
+
+.blog-detail p {
+  font-size: 1rem;
+  color: #7f8c8d;
+  margin-bottom: 20px;
+}
+
+/* Markdown content area */
+.blog-content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #34495e;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid #ddd;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Buttons */
+.blog-detail button {
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Edit Button */
+.blog-detail button:first-of-type {
+  background-color: #3498db;
+  color: white;
+}
+
+.blog-detail button:first-of-type:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+/* Delete Button */
+.blog-detail button:nth-of-type(2) {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.blog-detail button:nth-of-type(2):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+}
+
+/* Back Button */
+.blog-detail > div:last-of-type button {
+  background-color: #bdc3c7;
+  color: #2c3e50;
+}
+
+.blog-detail > div:last-of-type button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .blog-detail {
+    padding: 20px;
+  }
+
+  .blog-detail h2 {
+    font-size: 1.8rem;
+  }
+
+  .blog-content {
+    font-size: 1rem;
+  }
+}
