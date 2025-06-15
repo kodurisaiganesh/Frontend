@@ -45,12 +45,12 @@ function BlogList() {
     <div className="blog-list">
       <h2>All Blogs</h2>
       {blogs.map((blog) => {
-        const isOwner = user?.username === blog.author;
+        const isOwner = user && user.id === blog.author;
         return (
           <div key={blog.id} className="blog-card">
             <h3>{blog.title}</h3>
             <p>{blog.content.length > 150 ? blog.content.slice(0, 150) + '...' : blog.content}</p>
-            <p><strong>Author:</strong> {blog.author}</p>
+            <p><strong>Author:</strong> {blog.author_username}</p>
 
             <Link to={`/blogs/${blog.id}`} className="read-more-link">Read More</Link>
 
