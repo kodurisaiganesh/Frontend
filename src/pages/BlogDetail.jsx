@@ -17,7 +17,7 @@ function BlogDetail() {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const res = await API.get(`blogs/${id}/`);
+        const res = await API.get(`/blogs/${id}/`);
         setBlog(res.data);
       } catch (err) {
         setError('Could not fetch blog.');
@@ -30,11 +30,10 @@ function BlogDetail() {
   }, [id]);
 
   const handleDelete = async () => {
-    const confirmed = window.confirm('Are you sure you want to delete this post?');
-    if (!confirmed) return;
+    if (!window.confirm('Are you sure you want to delete this post?')) return;
 
     try {
-      await API.delete(`blogs/${id}/`);
+      await API.delete(`/blogs/${id}/`);
       navigate('/');
     } catch (err) {
       setError('Delete failed. You may not have permission.');
@@ -52,34 +51,17 @@ function BlogDetail() {
       <h2>{blog.title}</h2>
       <p><strong>By:</strong> {blog.author}</p>
       <hr />
-
-      <div className="blog-content">
-        <ReactMarkdown>{blog.content}</ReactMarkdown>
-      </div>
+      <div className="blog-content"><ReactMarkdown>{blog.content}</ReactMarkdown></div>
 
       {isAuthor && (
         <div style={{ marginTop: '1rem' }}>
-          <button onClick={() => navigate(`/edit/${id}`)}>Edit</button>
-          <button
-            onClick={handleDelete}
-            style={{
-              marginLeft: '1rem',
-              color: 'white',
-              backgroundColor: 'red',
-              border: 'none',
-              padding: '6px 12px',
-              cursor: 'pointer',
-            }}
-          >
-            Delete
-          </button>
+          <button onClick={() => navigate(`/blogs/${id}/edit`)}>Edit</button>
+          <button onClick={handleDelete} style={{ marginLeft: '1rem', background: 'red', color: 'white' }}>Delete</button>
         </div>
       )}
 
       <div style={{ marginTop: '2rem' }}>
-        <button onClick={() => navigate('/')} style={{ padding: '6px 12px' }}>
-          ← Back to All Blogs
-        </button>
+        <button onClick={() => navigate('/')}>← Back to All Blogs</button>
       </div>
     </div>
   );
