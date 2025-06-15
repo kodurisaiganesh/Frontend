@@ -16,49 +16,28 @@ function CreateBlog() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    if (!user) {
+      setError('Please log in to create a blog.');
+      return;
+    }
 
     try {
-      await API.post('blogs/', form);
+      await API.post('/blogs/', form);
       navigate('/');
     } catch (err) {
       setError('Failed to create blog.');
-      console.error(err);
     }
   };
-
-  if (!user) return <p>Please log in to create a blog.</p>;
 
   return (
     <div className="create-blog-page">
       <h2>Create a Blog</h2>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="title">Title:</label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={form.title}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="content">Content:</label>
-          <textarea
-            id="content"
-            name="content"
-            rows="8"
-            value={form.content}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
+        <label htmlFor="title">Title:</label>
+        <input id="title" name="title" value={form.title} onChange={handleChange} required />
+        <label htmlFor="content">Content:</label>
+        <textarea id="content" name="content" rows="8" value={form.content} onChange={handleChange} required />
         {error && <p className="error-message">{error}</p>}
-
         <button type="submit">Publish</button>
       </form>
     </div>
