@@ -1,7 +1,7 @@
 // BlogList.jsx
 import { useEffect, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import API from '../api/blogApi';
 import '../styles/BlogList.css';
 
@@ -10,6 +10,7 @@ function BlogList() {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchBlogs();
@@ -18,7 +19,7 @@ function BlogList() {
     if (token) {
       try {
         const decoded = jwtDecode(token);
-        const username = decoded?.username || decoded?.user?.username || null;
+        const username = decoded?.username || null;
         setCurrentUser(username);
         console.log('Logged in as:', username);
       } catch (err) {
@@ -39,6 +40,19 @@ function BlogList() {
     }
   };
 
+  const handleDelete = async (id) => {
+    const confirmed = window.confirm('Are you sure you want to delete this blog?');
+    if (!confirmed) return;
+
+    try {
+      await API.delete(`/blogs/${id}/`);
+      setBlogs((prev) => prev.filter((blog) => blog.id !== id));
+    } catch (err) {
+      console.error('Failed to delete blog:', err);
+      alert('Error deleting blog');
+    }
+  };
+
   if (loading) return <p>Loading blogs...</p>;
   if (error) return <p style={{ color: 'red' }}>{error}</p>;
 
@@ -46,8 +60,8 @@ function BlogList() {
     <div className="blog-list">
       <h2>All Blogs</h2>
       {blogs.map((blog) => {
-        const authorUsername =
-          typeof blog.author === 'object' ? blog.author.username : blog.author;
+        const authorUsername = blog.author_username;
+        const isOwner = currentUser === authorUsername;
 
         return (
           <div key={blog.id} className="blog-card">
@@ -64,6 +78,15 @@ function BlogList() {
             <Link to={`/blogs/${blog.id}`} className="read-more-link">
               Read More
             </Link>
+
+            {isOwner && (
+              <div className="blog-actions">
+                <button onClick={() => navigate(`/blogs/${blog.id}/edit`)}>Edit</button>
+                <button onClick={() => handleDelete(blog.id)} style={{ marginLeft: '8px' }}>
+                  Delete
+                </button>
+              </div>
+            )}
           </div>
         );
       })}
