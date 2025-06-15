@@ -1,12 +1,14 @@
 import { createContext, useState, useEffect, useContext } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import API from '../api/blogApi';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const decodeAndSetUser = (access) => {
     try {
@@ -37,7 +39,11 @@ export const AuthProvider = ({ children }) => {
       decodeAndSetUser(access);
       onSuccess?.();
     } catch (err) {
-      onError?.(err);
+      if (err.response?.status === 401) {
+        onError?.('Invalid username or password.');
+      } else {
+        onError?.('Login failed. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
@@ -47,6 +53,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('access');
     localStorage.removeItem('refresh');
     setUser(null);
+    navigate('/login'); // Optional: redirect on logout
   };
 
   const refreshToken = async () => {
@@ -65,9 +72,13 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const access = localStorage.getItem('access');
-    if (access) decodeAndSetUser(access);
-    setLoading(false);
+    const initializeAuth = async () => {
+      const access = localStorage.getItem('access');
+      if (access) decodeAndSetUser(access);
+      setLoading(false);
+    };
+
+    initializeAuth();
 
     const interval = setInterval(refreshToken, 1000 * 60 * 4); // Refresh every 4 minutes
     return () => clearInterval(interval);
@@ -80,7 +91,7 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// Optional: custom hook for convenience
+// Custom hook for easier use
 export const useAuth = () => useContext(AuthContext);
 
 export default AuthContext;
