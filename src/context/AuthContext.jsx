@@ -1,14 +1,12 @@
 import { createContext, useState, useEffect, useContext } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import API from '../api/blogApi';
-import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   const decodeAndSetUser = (access) => {
     try {
@@ -49,11 +47,11 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logoutUser = () => {
+  const logoutUser = (onLogout) => {
     localStorage.removeItem('access');
     localStorage.removeItem('refresh');
     setUser(null);
-    navigate('/login'); // Optional: redirect on logout
+    onLogout?.(); // Let the caller handle redirection
   };
 
   const refreshToken = async () => {
@@ -72,13 +70,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const initializeAuth = async () => {
-      const access = localStorage.getItem('access');
-      if (access) decodeAndSetUser(access);
-      setLoading(false);
-    };
-
-    initializeAuth();
+    const access = localStorage.getItem('access');
+    if (access) decodeAndSetUser(access);
+    setLoading(false);
 
     const interval = setInterval(refreshToken, 1000 * 60 * 4); // Refresh every 4 minutes
     return () => clearInterval(interval);
