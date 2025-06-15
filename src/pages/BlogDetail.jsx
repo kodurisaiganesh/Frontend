@@ -44,12 +44,12 @@ function BlogDetail() {
   if (error) return <p style={{ color: 'red' }}>{error}</p>;
   if (!blog) return <p>Blog not found.</p>;
 
-  const isAuthor = user?.username === blog.author;
+  const isAuthor = user && user.id === blog.author;
 
   return (
     <div className="blog-detail">
       <h2>{blog.title}</h2>
-      <p><strong>By:</strong> {blog.author}</p>
+      <p><strong>By:</strong> {blog.author_username}</p>
       <hr />
       <div className="blog-content"><ReactMarkdown>{blog.content}</ReactMarkdown></div>
 
