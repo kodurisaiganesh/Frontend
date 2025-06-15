@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import API from '../api/blogApi';
 import AuthContext from '../context/AuthContext';
-import './EditBlog.css';
+import '../styles/EditBlog.css';
 
 function EditBlog() {
   const { id } = useParams();
@@ -16,7 +16,7 @@ function EditBlog() {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const res = await API.get(`blogs/${id}/`);
+        const res = await API.get(`/blogs/${id}/`);
         if (user?.username !== res.data.author) {
           setError('You are not authorized to edit this blog.');
         } else {
@@ -39,7 +39,7 @@ function EditBlog() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await API.put(`blogs/${id}/`, form);
+      await API.put(`/blogs/${id}/`, form);
       navigate(`/blogs/${id}`);
     } catch (err) {
       setError('Failed to update blog.');
@@ -54,25 +54,9 @@ function EditBlog() {
       <h2>Edit Blog</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="title">Title:</label>
-        <input
-          type="text"
-          name="title"
-          id="title"
-          value={form.title}
-          onChange={handleChange}
-          required
-        />
-
+        <input type="text" name="title" id="title" value={form.title} onChange={handleChange} required />
         <label htmlFor="content">Content:</label>
-        <textarea
-          name="content"
-          id="content"
-          rows="10"
-          value={form.content}
-          onChange={handleChange}
-          required
-        />
-
+        <textarea name="content" id="content" rows="10" value={form.content} onChange={handleChange} required />
         <button type="submit">Update</button>
       </form>
     </div>
